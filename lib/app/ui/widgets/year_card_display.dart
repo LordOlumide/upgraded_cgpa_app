@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:upgraded_cgpa_app/app/helpers/int_to_position.dart';
 import 'package:upgraded_cgpa_app/app/models/year_result.dart';
-import 'package:upgraded_cgpa_app/app/providers/database_provider.dart';
+import 'package:upgraded_cgpa_app/app/data/riverpod_providers/database_state_notifier.dart';
 
-class YearCardDisplay extends StatelessWidget {
+class YearCardDisplay extends ConsumerWidget {
   final int yearResultIndex;
 
   const YearCardDisplay({
@@ -13,9 +13,8 @@ class YearCardDisplay extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    YearResult yearResult =
-        Provider.of<Database>(context).mainDatabase[yearResultIndex];
+  Widget build(BuildContext context, WidgetRef ref) {
+    YearResult yearResult = ref.watch(databaseProvider)[yearResultIndex];
 
     return Container(
       margin: const EdgeInsets.fromLTRB(5, 8, 5, 8),

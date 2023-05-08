@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:upgraded_cgpa_app/app/models/course_result.dart';
-import 'package:upgraded_cgpa_app/app/providers/database_provider.dart';
+import 'package:upgraded_cgpa_app/app/data/riverpod_providers/database_state_notifier.dart';
 
-class CourseCard extends StatelessWidget {
+class CourseCard extends ConsumerWidget {
   final int yearResultIndex;
   final bool isFirstSemester;
   final int courseResultIndex;
@@ -16,14 +16,14 @@ class CourseCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     CourseResult courseResult = isFirstSemester == true
-        ? Provider.of<Database>(context)
-            .mainDatabase[yearResultIndex]
+        ? ref
+            .watch(databaseProvider)[yearResultIndex]
             .firstSem
             .courses[courseResultIndex]
-        : Provider.of<Database>(context)
-            .mainDatabase[yearResultIndex]
+        : ref
+            .watch(databaseProvider)[yearResultIndex]
             .secondSem
             .courses[courseResultIndex];
 

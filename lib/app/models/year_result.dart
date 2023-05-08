@@ -37,4 +37,10 @@ class YearResult {
 
   bool isEmpty() =>
       firstSem.courses.isEmpty && secondSem.courses.isEmpty ? true : false;
+
+  @override
+  String toString() {
+    return '\nFirst semester: ${firstSem.courses.length} courses\n'
+        'Second semester: ${secondSem.courses.length} courses\n';
+  }
 }

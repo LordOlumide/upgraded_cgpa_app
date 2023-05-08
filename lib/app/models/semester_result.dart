@@ -39,6 +39,6 @@ class SemesterResult {
 
   @override
   String toString() {
-    return 'Semester Results: \n${_courses.map((e) => e.toString())}\n';
+    return 'Semester Results:\n${_courses.map((e) => e.toString())}\n';
   }
 }

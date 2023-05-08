@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:upgraded_cgpa_app/app/models/semester_result.dart';
-import 'package:upgraded_cgpa_app/app/providers/database_provider.dart';
+import 'package:upgraded_cgpa_app/app/data/riverpod_providers/database_state_notifier.dart';
 
-class SemesterCard extends StatelessWidget {
+class SemesterCard extends ConsumerWidget {
   final int yearResultIndex;
   final VoidCallback onPressed;
   final bool isFirstSemester;
@@ -16,12 +16,10 @@ class SemesterCard extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     SemesterResult semesterResult = isFirstSemester == true
-        ? Provider.of<Database>(context).mainDatabase[yearResultIndex].firstSem
-        : Provider.of<Database>(context)
-            .mainDatabase[yearResultIndex]
-            .secondSem;
+        ? ref.watch(databaseProvider)[yearResultIndex].firstSem
+        : ref.watch(databaseProvider)[yearResultIndex].secondSem;
 
     return Expanded(
       child: RawMaterialButton(
