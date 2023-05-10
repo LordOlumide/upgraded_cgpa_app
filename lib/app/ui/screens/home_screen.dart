@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:upgraded_cgpa_app/app/core/theme.dart';
-import 'package:upgraded_cgpa_app/app/data/riverpod_providers/database_state_notifier.dart';
+import 'package:upgraded_cgpa_app/app/core/app_theme/theme.dart';
+import 'package:upgraded_cgpa_app/app/data/riverpod_providers/database_provider.dart';
 import 'package:upgraded_cgpa_app/app/ui/widgets/year_card_display.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -52,8 +52,8 @@ class HomeScreen extends ConsumerWidget {
                             const TextSpan(text: 'Your CGPA: '),
                             TextSpan(
                               text: ref
-                                  .watch(databaseProvider.notifier)
-                                  .currentCGPA
+                                  .watch(databaseProvider.notifier.select(
+                                      (provider) => provider.currentCGPA))
                                   .toStringAsFixed(2),
                               style: TextStyle(
                                 fontSize: 30,

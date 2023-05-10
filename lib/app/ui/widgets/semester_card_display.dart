@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:upgraded_cgpa_app/app/models/semester_result.dart';
-import 'package:upgraded_cgpa_app/app/data/riverpod_providers/database_state_notifier.dart';
+import 'package:upgraded_cgpa_app/app/data/riverpod_providers/database_provider.dart';
 
 class SemesterCard extends ConsumerWidget {
   final int yearResultIndex;

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 
 class AppTheme {
   static Color lightPrimaryColor = const Color(0xffd5f8cc);
@@ -16,6 +18,9 @@ class AppTheme {
   static Color darkGreenColor = Colors.green[300]!;
 
   const AppTheme._();
+
+  static Brightness get currentSystemBrightness =>
+      SchedulerBinding.instance.window.platformBrightness;
 
   static ThemeData lightTheme = ThemeData.light().copyWith(
     useMaterial3: true,
@@ -50,6 +55,26 @@ class AppTheme {
       backgroundColor: darkFloatingActionButtonColor,
     ),
   );
+
+  static setStatusAndNavigationBarColors(ThemeMode themeMode) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness:
+          themeMode == ThemeMode.light ? Brightness.dark : Brightness.light,
+      systemNavigationBarIconBrightness:
+          themeMode == ThemeMode.light ? Brightness.dark : Brightness.light,
+      systemNavigationBarColor: themeMode == ThemeMode.light
+          ? lightBackgroundColor
+          : darkBackgroundColor,
+      systemNavigationBarDividerColor: Colors.transparent,
+    ));
+  }
+
+  static void refreshSystemOverlay() {
+    AppTheme.currentSystemBrightness == Brightness.light
+        ? AppTheme.setStatusAndNavigationBarColors(ThemeMode.light)
+        : AppTheme.setStatusAndNavigationBarColors(ThemeMode.dark);
+  }
 }
 
 extension ThemeExtension on ThemeData {

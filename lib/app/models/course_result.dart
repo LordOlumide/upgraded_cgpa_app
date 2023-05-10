@@ -1,4 +1,7 @@
+import 'package:upgraded_cgpa_app/app/utils/uuid_generator.dart';
+
 class CourseResult {
+  String? uniqueId;
   String courseTitle;
   String courseName;
   int score;
@@ -8,11 +11,13 @@ class CourseResult {
   late String grade;
 
   CourseResult({
+    this.uniqueId,
     required this.courseTitle,
     required this.courseName,
     required this.score,
     required this.noOfUnits,
   }) {
+    uniqueId = uniqueId ?? generateTimeBasedId();
     updateGradeAndGpaScore();
   }
 

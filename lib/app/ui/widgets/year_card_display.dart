@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:upgraded_cgpa_app/app/helpers/int_to_position.dart';
 import 'package:upgraded_cgpa_app/app/models/year_result.dart';
-import 'package:upgraded_cgpa_app/app/data/riverpod_providers/database_state_notifier.dart';
+import 'package:upgraded_cgpa_app/app/data/riverpod_providers/database_provider.dart';
+import 'package:upgraded_cgpa_app/app/ui/screens/semester_view_screen.dart';
+import 'package:upgraded_cgpa_app/app/utils/int_to_position.dart';
 
 class YearCardDisplay extends ConsumerWidget {
   final int yearResultIndex;
@@ -20,8 +21,8 @@ class YearCardDisplay extends ConsumerWidget {
       margin: const EdgeInsets.fromLTRB(5, 8, 5, 8),
       child: RawMaterialButton(
         onPressed: () {
-          // Navigator.pushNamed(context, SemesterScreen.screenId,
-          //     arguments: yearResultIndex);
+          Navigator.pushNamed(context, SemesterScreen.screenId,
+              arguments: yearResultIndex);
         },
         fillColor: Theme.of(context).colorScheme.secondary,
         elevation: 3.0,
@@ -35,7 +36,6 @@ class YearCardDisplay extends ConsumerWidget {
               children: [
                 Column(
                   children: [
-                    // The year: 1st year
                     Text(
                       '${intToPosition(yearResult.year)} year',
                       style: TextStyle(
@@ -55,8 +55,7 @@ class YearCardDisplay extends ConsumerWidget {
                       children: [
                         const TextSpan(text: 'GPA: '),
                         TextSpan(
-                          text: '00',
-                          // text: yearResult.yearGPA.toStringAsFixed(2),
+                          text: yearResult.yearGPA.toStringAsFixed(2),
                           style: TextStyle(
                             fontSize: 22,
                             fontWeight: FontWeight.w700,
@@ -85,21 +84,21 @@ class YearCardDisplay extends ConsumerWidget {
                       'First Semester:',
                       style: TextStyle(fontWeight: FontWeight.w600),
                     ),
-                    // Text(
-                    //   '\t\t\tCourses: ${yearResult.firstSem.totalNoOfCourses},'
-                    //   '\t\tCourse Weight: ${yearResult.firstSem.totalNoOfnoOfUnits}',
-                    //   style: const TextStyle(fontSize: 13),
-                    // ),
+                    Text(
+                      '\t\t\tCourses: ${yearResult.firstSem.totalNoOfCourses},'
+                      '\t\tCourse Weight: ${yearResult.firstSem.totalNoOfnoOfUnits}',
+                      style: const TextStyle(fontSize: 13),
+                    ),
                     const SizedBox(height: 3),
                     const Text(
                       'Second Semester:',
                       style: TextStyle(fontWeight: FontWeight.w600),
                     ),
-                    // Text(
-                    //   '\t\t\tCourses: ${yearResult.secondSem.totalNoOfCourses},'
-                    //   '\t\tCourse Weight: ${yearResult.secondSem.totalNoOfnoOfUnits}',
-                    //   style: const TextStyle(fontSize: 13),
-                    // ),
+                    Text(
+                      '\t\t\tCourses: ${yearResult.secondSem.totalNoOfCourses},'
+                      '\t\tCourse Weight: ${yearResult.secondSem.totalNoOfnoOfUnits}',
+                      style: const TextStyle(fontSize: 13),
+                    ),
                   ],
                 ),
               ],
