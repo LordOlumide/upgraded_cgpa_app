@@ -26,13 +26,25 @@ class CourseScreen extends ConsumerStatefulWidget {
 }
 
 class _CourseScreenState extends ConsumerState<CourseScreen> {
-  final courseSelectionStatesProvider =
-      StateNotifierProvider.autoDispose<CourseSelectionStates, List<bool>>(
-    (ref) {
-      final int noOfCourses = ref.read(databaseProvider).length;
-      return CourseSelectionStates(noOfCourses);
-    },
-  );
+  late final AutoDisposeStateNotifierProvider<CourseSelectionStates, List<bool>>
+      courseSelectionStatesProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize courseSelectionStatesProvider with correct no. of bools.
+    courseSelectionStatesProvider =
+        StateNotifierProvider.autoDispose<CourseSelectionStates, List<bool>>(
+      (ref) {
+        final int noOfCourses = widget.isFirstSemester
+            ? ref.read(databaseProvider.select((provider) =>
+                provider[widget.yearResultIndex].firstSem.totalNoOfCourses))
+            : ref.read(databaseProvider.select((provider) =>
+                provider[widget.yearResultIndex].secondSem.totalNoOfCourses));
+        return CourseSelectionStates(noOfCourses);
+      },
+    );
+  }
 
   bool inSelectionMode = false;
 
@@ -167,8 +179,7 @@ class _CourseScreenState extends ConsumerState<CourseScreen> {
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 elevation: 1,
                 title: Text(
-                  ref.watch(courseSelectionStatesProvider.notifier
-                      .select((provider) => provider.appBarTitle)),
+                  ref.watch(courseSelectionStatesProvider.notifier).appBarTitle,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     color: Theme.of(context).textTheme.bodyMedium!.color,
@@ -186,8 +197,9 @@ class _CourseScreenState extends ConsumerState<CourseScreen> {
                 ),
                 actions: [
                   Checkbox(
-                    value: ref.watch(courseSelectionStatesProvider.notifier
-                        .select((provider) => provider.allCoursesAreSelected)),
+                    value: ref
+                        .watch(courseSelectionStatesProvider.notifier)
+                        .allCoursesAreSelected,
                     activeColor: const Color.fromARGB(255, 101, 199, 121),
                     onChanged: (_) {
                       ref

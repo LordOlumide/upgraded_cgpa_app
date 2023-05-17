@@ -73,12 +73,18 @@ class HomeScreen extends ConsumerWidget {
               flex: 4,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-                child: ListView.builder(
+                child: ListView(
                   padding: const EdgeInsets.only(top: 10, bottom: 30),
-                  itemCount: ref.watch(databaseProvider).length,
-                  itemBuilder: (context, index) {
-                    return YearCardDisplay(yearResultIndex: index);
-                  },
+                  children: [
+                    for (int i = 0; i < ref.watch(databaseProvider).length; i++)
+                      YearCardDisplay(
+                        yearResultIndex: i,
+                        deleteThisYear: () {
+                          // TODO: implement delete middle year by index
+                          ref.read(databaseProvider.notifier).deleteYear();
+                        },
+                      )
+                  ],
                 ),
               ),
             ),

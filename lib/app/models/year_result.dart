@@ -1,3 +1,4 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:upgraded_cgpa_app/app/models/course_result.dart';
 import 'package:upgraded_cgpa_app/app/models/semester_result.dart';
 

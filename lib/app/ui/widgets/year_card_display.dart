@@ -3,14 +3,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:upgraded_cgpa_app/app/models/year_result.dart';
 import 'package:upgraded_cgpa_app/app/data/riverpod_providers/database_provider.dart';
 import 'package:upgraded_cgpa_app/app/ui/screens/semester_view_screen.dart';
+import 'package:upgraded_cgpa_app/app/ui/widgets/delete_popup.dart';
 import 'package:upgraded_cgpa_app/app/utils/int_to_position.dart';
 
 class YearCardDisplay extends ConsumerWidget {
   final int yearResultIndex;
+  final VoidCallback deleteThisYear;
 
   const YearCardDisplay({
     Key? key,
     required this.yearResultIndex,
+    required this.deleteThisYear,
   }) : super(key: key);
 
   @override
@@ -101,6 +104,30 @@ class YearCardDisplay extends ConsumerWidget {
                     ),
                   ],
                 ),
+
+                // Delete button. Only visible on the last card if it is empty.
+                yearResult.isEmpty() &&
+                        (yearResult.year == ref.watch(databaseProvider).length)
+                    ? IconButton(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        onPressed: () {
+                          showDialog<bool>(
+                            context: context,
+                            builder: (context) => DeletePopup(
+                                objectToDeleteName:
+                                    'the current ${intToPosition(yearResult.year)} year'),
+                          ).then((value) {
+                            if (value == true) {
+                              deleteThisYear();
+                            }
+                          });
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Color.fromARGB(255, 202, 54, 54),
+                        ),
+                      )
+                    : const SizedBox(),
               ],
             ),
           ],

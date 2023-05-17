@@ -38,6 +38,8 @@ class InputField extends StatelessWidget {
           onChanged: (newString) {
             controller.text = newString;
           },
+          style:
+              TextStyle(color: Theme.of(context).textTheme.bodyMedium!.color),
           cursorColor: Colors.black87,
           decoration: kTextFieldDecoration.copyWith(
             hintText: hint,

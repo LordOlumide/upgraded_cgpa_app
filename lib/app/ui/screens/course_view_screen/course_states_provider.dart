@@ -9,6 +9,7 @@ class CourseSelectionStates extends StateNotifier<List<bool>> {
     for (int i = 0; i < noOfCourses; i++) {
       state.add(false);
     }
+    state = [...state];
   }
 
   String get appBarTitle {
@@ -45,6 +46,7 @@ class CourseSelectionStates extends StateNotifier<List<bool>> {
 
   toggleStateOfCourse({required int index}) {
     state[index] = !state[index];
+    state = [...state];
   }
 
   void toggleAllCoursesAreSelected() {
@@ -52,5 +54,6 @@ class CourseSelectionStates extends StateNotifier<List<bool>> {
     for (int i = 0; i < state.length; i++) {
       state[i] = newState;
     }
+    state = [...state];
   }
 }

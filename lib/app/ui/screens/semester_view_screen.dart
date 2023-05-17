@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:upgraded_cgpa_app/app/data/riverpod_providers/database_provider.dart';
-import 'package:upgraded_cgpa_app/app/models/year_result.dart';
 import 'package:upgraded_cgpa_app/app/ui/screens/course_view_screen/course_view_screen.dart';
 import 'package:upgraded_cgpa_app/app/ui/widgets/semester_card_display.dart';
 import 'package:upgraded_cgpa_app/app/utils/int_to_position.dart';
@@ -16,8 +15,6 @@ class SemesterScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    YearResult yearResult = ref.watch(databaseProvider)[yearResultIndex];
-
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0,
@@ -37,7 +34,7 @@ class SemesterScreen extends ConsumerWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    '${intToPosition(yearResult.year)} Year',
+                    '${intToPosition(yearResultIndex + 1)} Year',
                     style: const TextStyle(
                       fontSize: 35,
                       fontWeight: FontWeight.w800,
@@ -47,14 +44,18 @@ class SemesterScreen extends ConsumerWidget {
                   Row(
                     children: [
                       Text(
-                        '${intToPosition(yearResult.year)} Year GPA: ',
+                        '${intToPosition(yearResultIndex + 1)} Year GPA: ',
                         style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       Text(
-                        yearResult.yearGPA.toStringAsFixed(2),
+                        ref
+                            .watch(databaseProvider.notifier)
+                            .state[yearResultIndex]
+                            .yearGPA
+                            .toStringAsFixed(2),
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w700,

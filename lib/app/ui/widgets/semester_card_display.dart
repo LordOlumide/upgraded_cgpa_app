@@ -54,27 +54,27 @@ class SemesterCard extends ConsumerWidget {
             const SizedBox(height: 15),
 
             // Semester GPA
-            // Text(
-            //   'Semester GPA:  ${semesterResult.semesterGPA.toStringAsFixed(2)}',
-            //   style: const TextStyle(
-            //     fontSize: 22,
-            //     fontWeight: FontWeight.w600,
-            //   ),
-            // ),
+            Text(
+              'Semester GPA:  ${semesterResult.semesterGPA.toStringAsFixed(2)}',
+              style: const TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             const SizedBox(height: 10),
 
             // Number of Courses
-            // Text(
-            //   'Number of Courses:  ${semesterResult.totalNoOfCourses}',
-            //   style: const TextStyle(),
-            // ),
+            Text(
+              'Number of Courses:  ${semesterResult.totalNoOfCourses}',
+              style: const TextStyle(),
+            ),
             const SizedBox(height: 5),
 
             // Number of noOfUnits
-            // Text(
-            //   'Number of noOfUnits:  ${semesterResult.totalNoOfnoOfUnits}',
-            //   style: const TextStyle(),
-            // ),
+            Text(
+              'Number of noOfUnits:  ${semesterResult.totalNoOfnoOfUnits}',
+              style: const TextStyle(),
+            ),
             const SizedBox(height: 20),
           ],
         ),

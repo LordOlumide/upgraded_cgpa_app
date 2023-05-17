@@ -7,6 +7,10 @@ final databaseProvider = StateNotifierProvider<Database, List<YearResult>>(
   (ref) => Database()..initialize(),
 );
 
+/// Note: To change the state of anything, the state variable must be
+/// reassigned. Not just changed. Reassigned. Cos StateNotifier should not
+/// provider mutable state. So add this line to every function that changes
+/// the state: """state = [...state];"""
 class Database extends StateNotifier<List<YearResult>> {
   Database() : super([]);
 
@@ -14,9 +18,15 @@ class Database extends StateNotifier<List<YearResult>> {
     addDummyData();
   }
 
-  void addNewYear() => state.add(YearResult(year: state.length + 1));
+  void addNewYear() {
+    state.add(YearResult(year: state.length + 1));
+    state = [...state];
+  }
 
-  void deleteYear() => state.removeLast();
+  void deleteYear() {
+    state.removeLast();
+    state = [...state];
+  }
 
   double get currentCGPA {
     int cumulativeScore = 0;
@@ -43,6 +53,7 @@ class Database extends StateNotifier<List<YearResult>> {
     isFirstSemester == true
         ? state[yearResultIndex].addCourseToFirstSem(newCourse)
         : state[yearResultIndex].addCourseToSecondSem(newCourse);
+    state = [...state];
   }
 
   void editCourse({
@@ -60,6 +71,7 @@ class Database extends StateNotifier<List<YearResult>> {
             .secondSem
             .courses[courseResultIndex]
             .updateCourse(newCourse: newCourse);
+    state = [...state];
   }
 
   void deleteCourse({
@@ -71,6 +83,7 @@ class Database extends StateNotifier<List<YearResult>> {
     isFirstSemester == true
         ? state[yearResultIndex].firstSem.removeCourse(courseResultIndex)
         : state[yearResultIndex].secondSem.removeCourse(courseResultIndex);
+    state = [...state];
   }
 
   void addDummyData() {
