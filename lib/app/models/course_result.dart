@@ -1,7 +1,16 @@
 import 'package:upgraded_cgpa_app/app/utils/uuid_generator.dart';
+import 'package:isar/isar.dart';
 
+@collection
 class CourseResult {
+  Id id = Isar.autoIncrement;
+
+  @Index(type: IndexType.value)
   String? uniqueId;
+
+  final int courseYear;
+  final bool courseIsFirstSem;
+
   String courseTitle;
   String courseName;
   int score;
@@ -12,6 +21,8 @@ class CourseResult {
 
   CourseResult({
     this.uniqueId,
+    required this.courseYear,
+    required this.courseIsFirstSem,
     required this.courseTitle,
     required this.courseName,
     required this.score,
@@ -52,6 +63,8 @@ class CourseResult {
   }
 
   factory CourseResult.fromMap(Map<String, dynamic> json) => CourseResult(
+        courseYear: json['courseYear'],
+        courseIsFirstSem: json['courseIsFirstSem'],
         courseTitle: json['courseTitle'],
         courseName: json['courseName'],
         score: json['score'],
@@ -59,6 +72,8 @@ class CourseResult {
       );
 
   Map<String, dynamic> toMap() => {
+        'courseYear': courseYear,
+        'courseIsFirstSem': courseIsFirstSem,
         'courseTitle': courseTitle,
         'courseName': courseName,
         'score': score,
@@ -67,7 +82,8 @@ class CourseResult {
 
   @override
   String toString() {
-    return '{courseTitle: $courseTitle, courseName: $courseName, '
-        'score: $score, noOfnoOfUnits: $noOfUnits, gpaScore: $gpaScore, grade: $grade}';
+    return '{courseYear: $courseYear, courseIsFirstSem: $courseIsFirstSem, '
+        'courseTitle: $courseTitle, courseName: $courseName, score: $score, '
+        'noOfnoOfUnits: $noOfUnits, gpaScore: $gpaScore, grade: $grade}';
   }
 }

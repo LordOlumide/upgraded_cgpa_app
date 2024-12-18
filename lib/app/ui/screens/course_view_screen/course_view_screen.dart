@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:upgraded_cgpa_app/app/data/riverpod_providers/database_provider.dart';
+import 'package:upgraded_cgpa_app/app/data/riverpod_providers/'
+    'database_provider.dart';
 import 'package:upgraded_cgpa_app/app/models/course_result.dart';
 import 'package:upgraded_cgpa_app/app/models/semester_result.dart';
-import 'package:upgraded_cgpa_app/app/ui/screens/course_view_screen/course_states_provider.dart';
-import 'package:upgraded_cgpa_app/app/ui/screens/course_view_screen/form_variables_provider.dart';
+import 'package:upgraded_cgpa_app/app/ui/screens/course_view_screen/'
+    'providers/course_states_provider.dart';
+import 'package:upgraded_cgpa_app/app/ui/screens/course_view_screen/'
+    'providers/form_variables_provider.dart';
 import 'package:upgraded_cgpa_app/app/ui/widgets/course_card_display.dart';
 import 'package:upgraded_cgpa_app/app/ui/widgets/course_input_sheet.dart';
 import 'package:upgraded_cgpa_app/app/ui/widgets/delete_popup.dart';
@@ -133,6 +136,7 @@ class _CourseScreenState extends ConsumerState<CourseScreen> {
       });
     }
 
+    // TODO: Extract this function
     /// bool addNotEdit is true when this function is called to add a new course
     /// and false when it's called to edit an existing course.
     void bringUpBottomSheet(
